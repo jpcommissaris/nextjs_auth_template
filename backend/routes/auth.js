@@ -11,7 +11,7 @@ router.get('/signout', signout)
 
 router.get('/secret', requireSignin, (req, res) => {
     res.json({
-        message: 'only logged in users can see this page'
+        user: req.user
     })
 })
 

@@ -3,10 +3,11 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
-import {APP_NAME, API} from '../config.js'
+import {APP_NAME} from '../config.js'
 import Link from 'next/link'
 import {signout, isAuth} from '../actions/auth'
-import { Router } from 'next/router';
+import { useRouter } from 'next/router';
+import {useState, useEffect} from 'react'
 
 
 const style = {
@@ -17,18 +18,30 @@ const style = {
 
 
 function Header(props) {
-    
-    const UILoginState = () => {
-        const user = false
+    const router = useRouter()
+    const [auth, setAuth] = useState(false)
+    useEffect(() => {
         if(isAuth()){
+            setAuth(isAuth())
+        }else{
+            setAuth(false)
+        }
+    }, [])
+
+    
+    const authLink = () => {
+        if(auth){
             return(
                 <NavDropdown
-                    title={user.name}
+                    title={auth.name}
                 >
                     <NavDropdown.Item 
                         className="text-danger" 
-                        href= "/" 
-                        onClick={() => signout(() => Router.replace('/'))}
+                        onClick={() => signout(() => {
+                            router.reload('/')
+                            //router.replace('/')
+                            //setAuth(false)
+                        })}
                     > 
                         Logout 
                     </NavDropdown.Item>
@@ -36,7 +49,7 @@ function Header(props) {
             )
         }else{
             return ( 
-                <NavDropdown title="logon">
+                <NavDropdown title={'logon'}>
                     <Link href="/signin">
                         <NavDropdown.Item className="text-danger" href= {'/signin'} > Login </NavDropdown.Item>
                     </Link>
@@ -47,6 +60,16 @@ function Header(props) {
             )
         }
     }
+
+    const dashboardLink = () => {
+        return isAuth() && (
+            <React.Fragment>
+                <Link href="/user">
+                    <Nav.Link href="/user"> dashboard </Nav.Link>
+                </Link>
+            </React.Fragment>
+        )
+    }
     
     return (
         <Navbar variant= "dark" bg="dark" expand="sm" style={style}>
@@ -56,12 +79,10 @@ function Header(props) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Link href="/">
-                        <Nav.Link href="/"> home </Nav.Link>
-                    </Link>
+                    {dashboardLink()}
                 </Nav> 
                 <Nav>
-                    {UILoginState()}
+                    {authLink()}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

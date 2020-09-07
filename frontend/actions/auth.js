@@ -37,7 +37,7 @@ export const signout = (next) => {
     removeLocalStorage('user')
     next()
 
-    return fetch(`${api}/signout`, {
+    return fetch(`${API}/signout`, {
         method: 'GET'
     }).then(res => {
         console.log(res)

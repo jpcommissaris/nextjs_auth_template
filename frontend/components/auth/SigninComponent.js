@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import {useState, useEffect} from 'react'
 import {signin, authenticate, isAuth} from '../../actions/auth'
-import Router from 'next/router';
+import useRouter from 'next/router';
 
 const SigninComponent = () => {
     const [formValues, setFormValues] = useState({
@@ -16,7 +16,7 @@ const SigninComponent = () => {
     const {email, password, error, loading, message, showForm} = formValues
 
     useEffect(() => {
-        isAuth() && Router.push('/')
+        isAuth() && useRouter.push('/')
     }, [])
 
     const handleSubmit = (e) => {
@@ -31,7 +31,12 @@ const SigninComponent = () => {
                 // save user token to cookie
                 // save user info to localstorage
                 authenticate(data, () => {
-                    Router.push(`/`)
+                    if(isAuth() && isAuth().role == 1){
+                        useRouter.push(`/user/admin`)
+                    }else{
+                        useRouter.push(`/user`)
+                    }
+                   
                 })
             }
             

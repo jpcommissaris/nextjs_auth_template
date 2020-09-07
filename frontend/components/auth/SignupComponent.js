@@ -1,7 +1,8 @@
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import {useState, useEffect} from 'react'
-import {signup} from '../../actions/auth'
+import {signup, isAuth} from '../../actions/auth'
+import useRouter from 'next/router'
 
 const SignupComponent = () => {
     const [formValues, setFormValues] = useState({
@@ -16,7 +17,7 @@ const SignupComponent = () => {
     const {name, email, password, error, loading, message, showForm} = formValues
 
     useEffect(() => {
-        isAuth() && Router.push('/')
+        isAuth() && useRouter.push('/')
     }, [])
 
     const handleSubmit = (e) => {
