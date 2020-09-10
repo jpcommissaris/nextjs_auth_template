@@ -32,7 +32,7 @@ const SigninComponent = () => {
                 // save user info to localstorage
                 authenticate(data, () => {
                     if(isAuth() && isAuth().role == 1){
-                        useRouter.push(`/user/admin`)
+                        useRouter.push(`/admin`)
                     }else{
                         useRouter.push(`/user`)
                     }

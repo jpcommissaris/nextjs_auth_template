@@ -1,12 +1,11 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import Button from 'react-bootstrap/Button'
-import Image from 'react-bootstrap/Image'
+import NProgress from 'nprogress'
 import {APP_NAME} from '../config.js'
 import Link from 'next/link'
 import {signout, isAuth} from '../actions/auth'
-import { useRouter } from 'next/router';
+import { useRouter, Router } from 'next/router';
 import {useState, useEffect} from 'react'
 
 
@@ -15,6 +14,7 @@ const style = {
     height: '50px',
     padding: '16px',
 } 
+
 
 
 function Header(props) {
@@ -34,6 +34,8 @@ function Header(props) {
             return(
                 <NavDropdown
                     title={auth.name}
+                    alignRight
+                    
                 >
                     <NavDropdown.Item 
                         className="text-danger" 
@@ -49,12 +51,12 @@ function Header(props) {
             )
         }else{
             return ( 
-                <NavDropdown title={'logon'}>
+                <NavDropdown title={'logon'} alignRight>
                     <Link href="/signin">
-                        <NavDropdown.Item className="text-danger" href= {'/signin'} > Login </NavDropdown.Item>
+                        <NavDropdown.Item  className="text-info" href= {'/signin'} > login </NavDropdown.Item>
                     </Link>
                     <Link href="/signup">
-                        <NavDropdown.Item className="text-danger" href= {'/signup'} > create account </NavDropdown.Item>
+                        <NavDropdown.Item  className="text-info" href= {'/signup'} > create account </NavDropdown.Item>
                     </Link>
                 </NavDropdown> 
             )
@@ -62,13 +64,16 @@ function Header(props) {
     }
 
     const dashboardLink = () => {
-        return isAuth() && (
-            <React.Fragment>
-                <Link href="/user">
-                    <Nav.Link href="/user"> dashboard </Nav.Link>
-                </Link>
-            </React.Fragment>
-        )
+        if(auth){
+            const link = auth.role===1 ? '/admin' : '/user'
+            return(
+                <React.Fragment>
+                    <Link href={link}>
+                        <Nav.Link href={link}> dashboard </Nav.Link>
+                    </Link>
+                </React.Fragment>
+            )
+        }
     }
     
     return (
