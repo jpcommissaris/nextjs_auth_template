@@ -2,32 +2,32 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import { getCookie } from '../../actions/auth';
-import { createCategory, getCategories, removeCategory } from '../../actions/category';
+import { createTag, getTags, removeTag } from '../../actions/tag';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
  
-const Category = () => {
+const Tag = () => {
     const [name, setName] = useState('')
     const [reqType, setReqType] = useState('')
-    const [categoryList, setCategoryList] = useState([])
+    const [tagList, setTagList] = useState([])
     const [error, setError] = useState('')
  
     const token = getCookie('token')
 
     useEffect(() => {
-        loadCategories()
+        loadTags()
     }, [])
  
  
-    const loadCategories = () => {
-        getCategories().then(data => {
+    const loadTags = () => {
+        getTags().then(data => {
             if (data.error) {
                 console.log(data.error)
             } else {
-                setCategoryList(data.sort((a, b) => (a.slug > b.slug) ? 1 : -1))
+                setTagList(data.sort((a, b) => (a.slug > b.slug) ? 1 : -1))
             }
         });
     };
@@ -36,13 +36,13 @@ const Category = () => {
         if (error) {
             return <p className="text-danger">Error: key already exists</p> 
         }else if(reqType=='create'){
-            return <p className="text-success">Category is created</p>
+            return <p className="text-success">Tag is created</p>
         }else if(reqType=='remove'){
-            return <p className="text-danger">Category is removed</p>
+            return <p className="text-danger">Tag is removed</p>
         }
     }
  
-    const categoryForm = () => (
+    const tagForm = () => (
         <Form onSubmit={handleSubmit}>
             <Form.Group >
                 <Form.Label>Name</Form.Label>
@@ -68,34 +68,34 @@ const Category = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if(reqType== 'create') addCategory()
-        else if(reqType=='remove') deleteCategory();
+        if(reqType== 'create') addTag()
+        else if(reqType=='remove') deleteTag();
     };
 
-    const addCategory = () => {
-        createCategory({name}, token).then(data => {
+    const addTag = () => {
+        createTag({name}, token).then(data => {
             if (data.error) {
                 setError(data.error)
             } else {
-                loadCategories()
+                loadTags()
             }
         });
     }
 
-    const deleteCategory = () => {
-        removeCategory(name, token).then(data => {
+    const deleteTag = () => {
+        removeTag(name, token).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
-                loadCategories()
+                loadTags()
             }
         });
     };
 
-    const showCategories = () => {
-        return categoryList.map((c, i) => {
+    const showTags = () => {
+        return tagList.map((t, i) => {
             return (
-                <li key={i}>{c.name}</li>
+                <li key={i}>{t.name}</li>
             );
         });
     };
@@ -103,10 +103,10 @@ const Category = () => {
     return (
         <React.Fragment>
             {showMessage()}
-            {categoryForm()}
-            {showCategories()}
+            {tagForm()}
+            {showTags()}
         </React.Fragment>
     );
 };
  
-export default Category;
+export default Tag;

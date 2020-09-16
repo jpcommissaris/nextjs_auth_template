@@ -19,7 +19,10 @@ const adminindex = () => {
                         <Col md='4'>
                             <ListGroup>
                                 <Link href="admin/crud/category-tag">
-                                    <ListGroup.Item action href="#"> Create Category</ListGroup.Item>
+                                    <ListGroup.Item action href="#"> Manage Categories/Tags</ListGroup.Item>
+                                </Link>
+                                <Link href="admin/crud/blog">
+                                    <ListGroup.Item action href="#"> Create Blog</ListGroup.Item>
                                 </Link>
                             </ListGroup>
                         </Col>
