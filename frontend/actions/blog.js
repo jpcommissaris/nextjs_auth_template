@@ -15,3 +15,20 @@ export const createBlog = (blog, token) => {
     })
     .catch(err => console.log(err))
 }
+
+export const listBlogsWithCategoriesAndTags = () => {
+    return fetch(`${API}/blogs-categories-tags`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+        },
+        body: {
+            limit: 10,
+            skip: 0
+        }
+    })
+    .then(res => {
+        return res.json()
+    })
+    .catch(err => console.log(err))
+}

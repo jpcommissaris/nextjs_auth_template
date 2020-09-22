@@ -239,6 +239,7 @@ const CreateBlog = () => {
                 setMessage({type: 'danger', content: JSON.stringify(data.error)})
             }else{
                 setFormValues({...defaultFormValues})
+                setFormValues({...formValues, body: ''})
                 handleChangeToBody('')
                 setMessage({type: 'success', content: `Create a blog named ${data.title}`})
             }
