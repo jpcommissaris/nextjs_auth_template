@@ -2,7 +2,6 @@
 import '../styles.css'
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import 'nprogress/nprogress.css';
-import 'react-quill/dist/quill.snow.css';
 
 import NProgress from 'nprogress';
 import Router from 'next/router';

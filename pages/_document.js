@@ -19,5 +19,3 @@ class MyDocument extends Document {
 }
 
 export default MyDocument
-
-//https://nextjs.org/docs/advanced-features/custom-document

@@ -75,26 +75,15 @@ function Header(props) {
             )
         }
     }
-    const blogsLink = () => {
-        let link = '/blogs' 
-        return(
-            <React.Fragment>
-                <Link href={link}>
-                    <Nav.Link href={link}> blogs </Nav.Link>
-                </Link>
-            </React.Fragment>
-        )
-    }
     
     return (
         <Navbar variant= "dark" bg="dark" expand="sm" style={style}>
             <Link href="/">
-                <Navbar.Brand href='/'>{APP_NAME}</Navbar.Brand>
+                <Navbar.Brand href='/'>Nex.js Template</Navbar.Brand>
             </Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    {blogsLink()}
                     {dashboardLink()}
                 </Nav> 
                 <Nav>

@@ -1,5 +1,6 @@
 import Layout from '../../components/Layout'
 import Private from '../../components/auth/Private'
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'

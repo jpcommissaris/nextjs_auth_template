@@ -11,15 +11,3 @@
     display: none !important;
    /*right: 4px !important;*/
 }
-
-.ql-editor {
-    min-height: 300px;
-}
-
-.btn-tag {
-    background-color:lightgreen !important;
-    font-size: 10px !important;
-    padding: 2px 5px !important;
-    margin: 2px !important;
-    border-radius: 30% !important;
-}
